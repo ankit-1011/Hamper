@@ -1,0 +1,55 @@
+<nav class="flex items-center justify-between px-6 py-4 bg-white shadow-md">
+
+  <!-- Logo -->
+  <div class="flex items-center space-x-2">
+    <a routerLink="/" class="flex items-center gap-2">
+      <img
+        src="https://img.freepik.com/premium-vector/hamper-clipart-cartoon-style-vector-illustration_761413-10323.jpg"
+        alt="Hamper" class="h-10 w-16 object-contain" />
+      <h1 class="text-xl font-semibold">Hamper</h1>
+    </a>
+  </div>
+
+  <!-- Navigation Links -->
+  <div class="hidden md:flex items-center space-x-6 text-[15px] font-medium">
+    <a routerLink="/" class="hover:text-blue-500 transition">Home</a>
+    <a routerLink="/products" class="hover:text-blue-500 transition">All Products</a>
+    <a routerLink="/contact" class="hover:text-blue-500 transition">Contact</a>
+  </div>
+
+  <!-- Search Bar -->
+  <div class="hidden md:flex items-center border border-gray-300 rounded-full h-[42px] px-3 w-[280px] bg-gray-50">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6B7280"
+      stroke-width="2">
+      <circle cx="11" cy="11" r="8"></circle>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+    </svg>
+    <input type="text" placeholder="Search products..."
+      class="ml-2 w-full bg-transparent text-sm outline-none text-gray-600" />
+  </div>
+
+  <!-- Right Icons -->
+  <div class="flex items-center space-x-4 text-[15px]">
+
+    <!-- Cart Icon -->
+    <button routerLink="/cart" class="hover:text-blue-500 transition">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="8" cy="21" r="1" />
+        <circle cx="19" cy="21" r="1" />
+        <path d="M2 2h3l3.6 12.4a2 2 0 0 0 2 1.6h8.8a2 2 0 0 0 1.9-1.5l1.8-8H6" />
+      </svg>
+    </button>
+
+    <!-- Login -->
+    <a routerLink="/login" class="hidden md:inline-block hover:text-blue-500 transition">
+      Login
+    </a>
+
+    <!-- Signup -->
+    <a routerLink="/signup"
+      class="px-6 py-2 bg-green-500 hover:bg-green-600 text-white rounded-full transition hidden md:inline-block">
+      Sign Up
+    </a>
+
+  </div>
+</nav>

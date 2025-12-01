@@ -1,0 +1,46 @@
+<div class="flex justify-center items-center h-screen bg-gray-100 px-4">
+  <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md">
+
+    <h2 class="text-2xl font-semibold mb-6 text-center">Login to Hamper</h2>
+
+    <form [formGroup]="loginForm" (ngSubmit)="loginUser()">
+
+      <!-- Email -->
+      <label class="block mb-2 text-gray-600">Email</label>
+      <input
+        formControlName="email"
+        type="email"
+        class="w-full px-4 py-2 mb-4 border rounded-lg outline-none focus:ring-2 focus:ring-blue-400"
+        placeholder="Enter your email"
+      />
+
+      <!-- Password -->
+      <label class="block mb-2 text-gray-600">Password</label>
+      <input
+        formControlName="password"
+        type="password"
+        class="w-full px-4 py-2 mb-4 border rounded-lg outline-none focus:ring-2 focus:ring-blue-400"
+        placeholder="Enter your password"
+      />
+
+      <!-- Error Message -->
+      <p *ngIf="errorMsg" class="text-red-500 text-sm mb-4">{{ errorMsg }}</p>
+
+      <!-- Login Button -->
+      <button
+        type="submit"
+        [disabled]="loading"
+        class="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-lg transition"
+      >
+        {{ loading ? "Logging in..." : "Login" }}
+      </button>
+
+    </form>
+
+    <p class="mt-4 text-center text-gray-600 text-sm">
+      Don’t have an account?
+      <a routerLink="/signup" class="text-blue-600 hover:underline">Sign Up</a>
+    </p>
+
+  </div>
+</div>

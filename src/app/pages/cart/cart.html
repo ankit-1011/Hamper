@@ -1,0 +1,67 @@
+<div class="flex justify-between gap-220">
+    <div class="d">dsg</div>
+
+    <div class="max-w-sm mx-auto bg-white p-6 w-96 shadow-left-md py-20">
+
+        <h2 class="text-xl font-semibold mb-4">Order Summary</h2>
+
+       
+        <div class="mb-4">
+            <h3 class="text-sm font-medium text-gray-600">CART ITEMS</h3>
+            
+            <div *ngFor="let item of cartItems" class="flex justify-between items-center mt-2 border-b pb-2">
+                
+              
+                <img [src]="item.thumbnail" alt="{{item.title}}" class="w-16 h-16 object-cover rounded-md mr-3">
+
+               
+                <div class="flex-1 flex justify-between items-center">
+                    <span>{{ item.title | slice:0:20 }}...</span>
+                    <span>₹{{ item.price }}</span>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <h3 class="text-sm font-medium text-gray-600">DELIVERY ADDRESS</h3>
+            <div class="flex justify-between items-center mt-1">
+                <span class="text-gray-500">{{ deliveryAddress }}</span>
+                <button class="text-green-500 text-sm" (click)="changeAddress()">Change</button>
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <h3 class="text-sm font-medium text-gray-600">PAYMENT METHOD</h3>
+            <select class="mt-1 block w-full border border-gray-300 rounded-md p-2" [(ngModel)]="paymentMethod">
+                <option>Cash On Delivery</option>
+                <option>Credit / Debit Card</option>
+                <option>UPI</option>
+            </select>
+        </div>
+
+        <div class="mb-4 space-y-1">
+            <div class="flex justify-between">
+                <span class="text-gray-500">Price</span>
+                <span>₹{{ price }}</span>
+            </div>
+            <div class="flex justify-between">
+                <span class="text-green-500">Shipping Fee</span>
+                <span class="text-green-500">{{ shippingFee === 0 ? 'Free' : '₹' + shippingFee }}</span>
+            </div>
+            <div class="flex justify-between">
+                <span class="text-gray-500">Tax ({{taxPercent}}%)</span>
+                <span>₹{{ tax }}</span>
+            </div>
+            <div class="flex justify-between font-semibold text-lg mt-2">
+                <span>Total Amount:</span>
+                <span>₹{{ totalAmount }}</span>
+            </div>
+        </div>
+
+        <button class="w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600" (click)="placeOrder()">
+            Place Order
+        </button>
+
+    </div>
+</div>
