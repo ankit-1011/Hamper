@@ -5,30 +5,37 @@ import { ShoppingCart } from 'lucide-angular/src/icons';
 import { AuthService } from '../../services/login';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { CartService } from '../../services/cart';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterLink, LucideAngularModule, ReactiveFormsModule, FormsModule,CommonModule],
+  imports: [RouterLink, ReactiveFormsModule, FormsModule,CommonModule],
   templateUrl: './navbar.html',
   styleUrls: ['./navbar.css'],
 })
 export class NavbarComponent {
 
   isOpen = false;
+  cartCount:number =0;
 
-  constructor(private router: Router,public auth: AuthService) {}
+  constructor(private router: Router,public auth: AuthService,private cartService:CartService) {}
 
-  readonly shoppingCart = ShoppingCart
-
-  logout() {
-    this.auth.logout();
+  ngOnInit() {
+    isOpen: false;
+    this.cartService.cartCount.subscribe(count => {
+      this.cartCount = count;
+    });
   }
 
- reload() {
-  this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-    this.router.navigate(['/products']);
-  });
+goToProducts() {
+  this.router.navigateByUrl('/products');console.log(this.router.url);
 }
+
+navigateTo(path: string) {
+  this.isOpen = false;
+  this.router.navigate([path]);
+}
+
 
 }

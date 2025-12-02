@@ -1,17 +1,18 @@
-import { CommonModule } from "@angular/common";
-import { HttpClient, HttpClientModule } from "@angular/common/http";
-import { NgModule } from "@angular/core";
-import { BrowserModule } from "@angular/platform-browser";
-
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { Router, NavigationEnd } from '@angular/router';
+// ...existing imports...
 
 @NgModule({
-    declarations:[],
-    imports:[
-        BrowserModule,
-        HttpClientModule,
-        CommonModule
-    ],
-    providers:[],
-    bootstrap:[]
+  // ...existing code...
 })
-export class AppModule{}
+export class AppModule {
+  constructor(router: Router) {
+    router.routeReuseStrategy.shouldReuseRoute = () => false;
+    router.events.subscribe((evt) => {
+      if (evt instanceof NavigationEnd) {
+        router.navigated = false;
+      }
+    });
+  }
+}

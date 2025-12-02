@@ -1,12 +1,12 @@
-import { Component, NgModule, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CartService } from '../../services/cart';
 import { FormsModule } from '@angular/forms';
-import { SlicePipe ,CommonModule} from '@angular/common';
+import { SlicePipe, CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule,FormsModule,SlicePipe],
+  imports: [CommonModule, FormsModule, SlicePipe],
   templateUrl: './cart.html',
   styleUrls: ['./cart.css']
 })
@@ -26,15 +26,40 @@ export class Cart implements OnInit {
   constructor(private cartService: CartService) {}
 
   ngOnInit(): void {
-    this.cartItems = this.cartService.getCart();
+    this.cartItems = this.cartService.getCartItems();
     this.updateTotals();
   }
 
+  // ➤ TOTALS CALCULATION
   updateTotals() {
-    this.price = this.cartItems.reduce((sum, item) => sum + item.price, 0);
+    this.price = this.cartItems.reduce(
+      (sum, item) => sum + item.price * item.quantity, 
+      0
+    );
+
     this.shippingFee = this.price > 500 ? 0 : 40;
     this.tax = Math.round((this.price * this.taxPercent) / 100);
     this.totalAmount = this.price + this.tax + this.shippingFee;
+  }
+
+  // ➤ INCREASE QUANTITY
+  increase(item: any) {
+    this.cartService.updateQuantity(item.id, +1);
+    this.updateTotals();
+  }
+
+  // ➤ DECREASE QUANTITY
+  decrease(item: any) {
+    this.cartService.updateQuantity(item.id, -1);
+    this.cartItems = this.cartService.getCartItems();
+    this.updateTotals();
+  }
+
+  // ➤ REMOVE ITEM COMPLETELY
+  remove(item: any) {
+    this.cartService.removeItem(item.id);
+    this.cartItems = this.cartService.getCartItems();
+    this.updateTotals();
   }
 
   changeAddress() {

@@ -1,6 +1,6 @@
 <nav class="flex items-center justify-between px-6 py-4 bg-white shadow-md relative">
 
- 
+
   <div class="flex items-center space-x-2">
     <a routerLink="/" class="flex items-center gap-2">
       <img
@@ -10,14 +10,17 @@
     </a>
   </div>
 
- 
+
   <div class="hidden md:flex items-center space-x-6 text-[15px] font-medium">
     <a routerLink="/" class="hover:text-blue-500 transition">Home</a>
-    <a routerLink="/products" class="hover:text-blue-500 transition">All Products</a>
-    <a routerLink="/contact" class="hover:text-blue-500 transition">Contact</a>
+    <a routerLink="/products" routerLinkActive="text-blue-500 font-semibold" class="hover:text-blue-500 transition" (click)="goToProducts()">
+      All Products
+    </a>
+
+    <a  class="hover:text-blue-500 transition">Contact</a>
   </div>
 
- 
+
   <div class="hidden md:flex items-center border border-gray-300 rounded-full h-[42px] px-3 w-[280px] bg-gray-50">
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="#6B7280" stroke-width="2">
       <circle cx="11" cy="11" r="8"></circle>
@@ -30,6 +33,7 @@
 
   <div class="hidden md:flex items-center space-x-4 text-[15px]">
     <button routerLink="/cart" class="hover:text-blue-500 transition">
+      <span class="absolute w-5 h-5 top-4 left-264 bg-green-600 text-white rounded-full px-1.5 ">{{cartCount}}</span>
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
         <circle cx="8" cy="21" r="1" />
         <circle cx="19" cy="21" r="1" />
@@ -39,8 +43,7 @@
 
     <a routerLink="/login" class="hover:text-blue-500 transition">Login</a>
 
-    <a routerLink="/signup"
-      class="px-6 py-2 bg-green-500 hover:bg-green-600 text-white rounded-full transition">
+    <a routerLink="/signup" class="px-6 py-2 bg-green-500 hover:bg-green-600 text-white rounded-full transition">
       Sign Up
     </a>
   </div>
@@ -54,18 +57,16 @@
     </svg>
   </button>
 
-  
-  <div *ngIf="isOpen" class="absolute top-16 left-0 w-full bg-white shadow-lg md:hidden px-6 py-4 space-y-4 text-[16px]">
+
+  <div *ngIf="isOpen"
+    class="absolute top-16 left-0 w-full bg-white shadow-lg md:hidden px-6 py-4 space-y-4 text-[16px]">
 
     <a routerLink="/" class="block hover:text-blue-500">Home</a>
-    <a routerLink="/products" (click)="reload()">
-  All Products
-</a>
+    <a (click)="navigateTo('/products')" class="block hover:text-blue-500">All Products</a>
 
     <a routerLink="/contact" class="block hover:text-blue-500">Contact</a>
 
     <hr />
-
     <a routerLink="/cart" class="block hover:text-blue-500">Cart</a>
     <a routerLink="/login" class="block hover:text-blue-500">Login</a>
 

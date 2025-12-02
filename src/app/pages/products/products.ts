@@ -1,39 +1,42 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from '../../services/product';
 import { CommonModule } from '@angular/common';
+import { Product } from '../../services/product';
 import { CartService } from '../../services/cart';
 
 @Component({
   selector: 'app-products',
-  standalone:true,
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './products.html',
-  styleUrl: './products.css',
+  styleUrls: ['./products.css']
 })
-
 export class Products implements OnInit {
 
+  products: any[] = [];
 
-  products: any[]=[];
-
-  constructor(private productServices : Product,
+  constructor(
+    private productServices: Product,
     private cartService: CartService
-  ){}
-  
-  ngOnInit(){
-    this.productServices.getProducts().subscribe((res : any)=>{
-      this.products = res.products;
-      console.log(this.products);
+  ) {}
+
+  ngOnInit() {
+    this.productServices.getProducts().subscribe((res: any) => {
+      this.products = res.products.map((p: any) => ({
+        ...p,
+        localCount: 0
+      }));
     });
-
-  } 
-
+  }
 
   addProduct(p: any) {
+    p.localCount += 1;
     this.cartService.addToCart(p);
   }
 
-  orderPlaced(){
-    alert("Added to Cart!");
+  removeProduct(p: any) {
+    if (p.localCount > 0) {
+      p.localCount -= 1;
+      this.cartService.removeFromCart(p);
+    }
   }
 }

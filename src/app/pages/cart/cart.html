@@ -1,53 +1,84 @@
 <div class="flex flex-col md:flex-row justify-between gap-8 px-4 md:px-10 py-6">
 
-   
-    <div class="md:w-1/2 w-full">
-        <div class="text-lg font-semibold mb-4">Your Items</div>
-        <div class="bg-gray-100 p-4 rounded-lg">Left content example</div>
-    </div>
 
-   
-    <div class="w-full md:w-96 mx-auto bg-white p-6 shadow-left-md py-10 rounded-lg">
+   <div class="md:w-1/2 w-full">
+    <div class="text-lg font-semibold mb-4">Your Items</div>
 
-        <h2 class="text-xl font-semibold mb-4">Order Summary</h2>
+    <div *ngFor="let item of cartItems" class="flex items-center justify-between mt-3 border-b pb-3">
 
-       
-        <div class="mb-4">
-            <h3 class="text-sm font-medium text-gray-600">CART ITEMS</h3>
+        <img [src]="item.thumbnail" alt="{{ item.title }}" class="w-14 h-14 object-cover rounded-md">
 
-            <div *ngFor="let item of cartItems" class="flex items-center justify-between mt-3 border-b pb-3">
-                
-                <img [src]="item.thumbnail" alt="{{ item.title }}"
-                    class="w-14 h-14 object-cover rounded-md">
+        <div class="flex-1 flex flex-col ml-3">
+            <span class="font-medium text-gray-700">
+                {{ item.title | slice:0:22 }}...
+            </span>
 
-                <div class="flex-1 flex flex-col ml-3">
-                    <span class="font-medium text-gray-700">{{ item.title | slice:0:22 }}...</span>
-                    <span class="text-green-600 font-semibold">₹{{ item.price }}</span>
-                </div>
+            <span class="text-green-600 font-semibold">
+                ₹{{ item.price }} × {{ item.quantity }}
+            </span>
+
+            <span class="text-gray-500 text-sm">
+                Total: ₹{{ item.price * item.quantity }}
+            </span>
+
+            <!-- QUANTITY BUTTONS -->
+            <div class="flex items-center gap-3 mt-3">
+
+                <!-- Minus -->
+                <button 
+                  class="px-3 py-1 bg-red-200 rounded" 
+                  (click)="decrease(item)">
+                    -
+                </button>
+
+                <span class="font-semibold">{{ item.quantity }}</span>
+
+                <!-- Plus -->
+                <button 
+                  class="px-3 py-1 bg-green-200 rounded" 
+                  (click)="increase(item)">
+                    +
+                </button>
+
+                <!-- Remove -->
+                <button 
+                  class="ml-4 px-3 py-1 bg-gray-300 rounded text-sm" 
+                  (click)="remove(item)">
+                    Remove
+                </button>
+
             </div>
         </div>
 
-        
+    </div>
+</div>
+
+
+
+    <div class="w-full md:w-96 mx-auto bg-white p-6 shadow-left-md py-10 rounded-lg">
+
+        <h2 class="text-xl font-semibold mb-4">Order Summary</h2>
         <div class="mb-4">
             <h3 class="text-sm font-medium text-gray-600">DELIVERY ADDRESS</h3>
             <div class="flex justify-between items-center mt-1">
                 <span class="text-gray-500 text-sm">{{ deliveryAddress }}</span>
-                <button class="text-green-500 text-sm font-medium" (click)="changeAddress()">Change</button>
+                <button class="text-green-500 text-sm font-medium" (click)="changeAddress()">
+                    Change
+                </button>
             </div>
         </div>
 
-       
+
         <div class="mb-4">
             <h3 class="text-sm font-medium text-gray-600">PAYMENT METHOD</h3>
-            <select class="mt-1 block w-full border border-gray-300 rounded-md p-2 text-sm"
-                [(ngModel)]="paymentMethod">
+            <select class="mt-1 block w-full border border-gray-300 rounded-md p-2 text-sm" [(ngModel)]="paymentMethod">
                 <option>Cash On Delivery</option>
                 <option>Credit / Debit Card</option>
                 <option>UPI</option>
             </select>
         </div>
 
-       
+
         <div class="mb-4 space-y-2 text-sm">
             <div class="flex justify-between">
                 <span class="text-gray-500">Price</span>
@@ -55,7 +86,9 @@
             </div>
             <div class="flex justify-between">
                 <span class="text-green-500">Shipping Fee</span>
-                <span class="text-green-500">{{ shippingFee === 0 ? 'Free' : '₹' + shippingFee }}</span>
+                <span class="text-green-500">
+                    {{ shippingFee === 0 ? 'Free' : '₹' + shippingFee }}
+                </span>
             </div>
             <div class="flex justify-between">
                 <span class="text-gray-500">Tax ({{ taxPercent }}%)</span>
@@ -67,11 +100,12 @@
             </div>
         </div>
 
-       
+
         <button class="w-full bg-green-500 text-white mt-4 py-2 rounded-lg hover:bg-green-600 text-sm"
             (click)="placeOrder()">
             Place Order
         </button>
 
     </div>
+
 </div>
