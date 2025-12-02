@@ -1,46 +1,54 @@
-<div class="flex justify-between gap-220">
-    <div class="d">dsg</div>
+<div class="flex flex-col md:flex-row justify-between gap-8 px-4 md:px-10 py-6">
 
-    <div class="max-w-sm mx-auto bg-white p-6 w-96 shadow-left-md py-20">
+   
+    <div class="md:w-1/2 w-full">
+        <div class="text-lg font-semibold mb-4">Your Items</div>
+        <div class="bg-gray-100 p-4 rounded-lg">Left content example</div>
+    </div>
+
+   
+    <div class="w-full md:w-96 mx-auto bg-white p-6 shadow-left-md py-10 rounded-lg">
 
         <h2 class="text-xl font-semibold mb-4">Order Summary</h2>
 
        
         <div class="mb-4">
             <h3 class="text-sm font-medium text-gray-600">CART ITEMS</h3>
-            
-            <div *ngFor="let item of cartItems" class="flex justify-between items-center mt-2 border-b pb-2">
-                
-              
-                <img [src]="item.thumbnail" alt="{{item.title}}" class="w-16 h-16 object-cover rounded-md mr-3">
 
-               
-                <div class="flex-1 flex justify-between items-center">
-                    <span>{{ item.title | slice:0:20 }}...</span>
-                    <span>₹{{ item.price }}</span>
-                </div>
+            <div *ngFor="let item of cartItems" class="flex items-center justify-between mt-3 border-b pb-3">
                 
+                <img [src]="item.thumbnail" alt="{{ item.title }}"
+                    class="w-14 h-14 object-cover rounded-md">
+
+                <div class="flex-1 flex flex-col ml-3">
+                    <span class="font-medium text-gray-700">{{ item.title | slice:0:22 }}...</span>
+                    <span class="text-green-600 font-semibold">₹{{ item.price }}</span>
+                </div>
             </div>
         </div>
 
+        
         <div class="mb-4">
             <h3 class="text-sm font-medium text-gray-600">DELIVERY ADDRESS</h3>
             <div class="flex justify-between items-center mt-1">
-                <span class="text-gray-500">{{ deliveryAddress }}</span>
-                <button class="text-green-500 text-sm" (click)="changeAddress()">Change</button>
+                <span class="text-gray-500 text-sm">{{ deliveryAddress }}</span>
+                <button class="text-green-500 text-sm font-medium" (click)="changeAddress()">Change</button>
             </div>
         </div>
 
+       
         <div class="mb-4">
             <h3 class="text-sm font-medium text-gray-600">PAYMENT METHOD</h3>
-            <select class="mt-1 block w-full border border-gray-300 rounded-md p-2" [(ngModel)]="paymentMethod">
+            <select class="mt-1 block w-full border border-gray-300 rounded-md p-2 text-sm"
+                [(ngModel)]="paymentMethod">
                 <option>Cash On Delivery</option>
                 <option>Credit / Debit Card</option>
                 <option>UPI</option>
             </select>
         </div>
 
-        <div class="mb-4 space-y-1">
+       
+        <div class="mb-4 space-y-2 text-sm">
             <div class="flex justify-between">
                 <span class="text-gray-500">Price</span>
                 <span>₹{{ price }}</span>
@@ -50,16 +58,18 @@
                 <span class="text-green-500">{{ shippingFee === 0 ? 'Free' : '₹' + shippingFee }}</span>
             </div>
             <div class="flex justify-between">
-                <span class="text-gray-500">Tax ({{taxPercent}}%)</span>
+                <span class="text-gray-500">Tax ({{ taxPercent }}%)</span>
                 <span>₹{{ tax }}</span>
             </div>
-            <div class="flex justify-between font-semibold text-lg mt-2">
-                <span>Total Amount:</span>
+            <div class="flex justify-between font-semibold text-lg pt-2">
+                <span>Total Amount</span>
                 <span>₹{{ totalAmount }}</span>
             </div>
         </div>
 
-        <button class="w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600" (click)="placeOrder()">
+       
+        <button class="w-full bg-green-500 text-white mt-4 py-2 rounded-lg hover:bg-green-600 text-sm"
+            (click)="placeOrder()">
             Place Order
         </button>
 
