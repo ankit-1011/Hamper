@@ -21,10 +21,10 @@
                 Total: ₹{{ item.price * item.quantity }}
             </span>
 
-            <!-- QUANTITY BUTTONS -->
+            <!-- adding & removing the items -->
             <div class="flex items-center gap-3 mt-3">
 
-                <!-- Minus -->
+                <!-- substracting the item -->
                 <button 
                   class="px-3 py-1 bg-red-200 rounded" 
                   (click)="decrease(item)">
@@ -33,7 +33,7 @@
 
                 <span class="font-semibold">{{ item.quantity }}</span>
 
-                <!-- Plus -->
+                <!-- add -->
                 <button 
                   class="px-3 py-1 bg-green-200 rounded" 
                   (click)="increase(item)">
@@ -82,7 +82,7 @@
         <div class="mb-4 space-y-2 text-sm">
             <div class="flex justify-between">
                 <span class="text-gray-500">Price</span>
-                <span>₹{{ price }}</span>
+                <span>₹{{ price.toString() | slice:0:10 }}</span>
             </div>
             <div class="flex justify-between">
                 <span class="text-green-500">Shipping Fee</span>
@@ -96,7 +96,7 @@
             </div>
             <div class="flex justify-between font-semibold text-lg pt-2">
                 <span>Total Amount</span>
-                <span>₹{{ totalAmount }}</span>
+                <span>₹{{ totalAmount.toString() | slice:0:10 }}</span>
             </div>
         </div>
 

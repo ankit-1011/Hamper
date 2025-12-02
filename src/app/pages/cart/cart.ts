@@ -30,7 +30,7 @@ export class Cart implements OnInit {
     this.updateTotals();
   }
 
-  // ➤ TOTALS CALCULATION
+  // total calculation
   updateTotals() {
     this.price = this.cartItems.reduce(
       (sum, item) => sum + item.price * item.quantity, 
@@ -42,20 +42,20 @@ export class Cart implements OnInit {
     this.totalAmount = this.price + this.tax + this.shippingFee;
   }
 
-  // ➤ INCREASE QUANTITY
+  // increase item
   increase(item: any) {
     this.cartService.updateQuantity(item.id, +1);
     this.updateTotals();
   }
 
-  // ➤ DECREASE QUANTITY
+  // decrease items
   decrease(item: any) {
     this.cartService.updateQuantity(item.id, -1);
     this.cartItems = this.cartService.getCartItems();
     this.updateTotals();
   }
 
-  // ➤ REMOVE ITEM COMPLETELY
+  // removing the item
   remove(item: any) {
     this.cartService.removeItem(item.id);
     this.cartItems = this.cartService.getCartItems();
